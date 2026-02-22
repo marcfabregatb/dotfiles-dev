@@ -1,44 +1,31 @@
-# 🚀 Marc's Dotfiles
+# Dotfiles
 
-This is my choice of configuration files, optimized for **Debian** and **VS Code DevContainers**. 
+Personal shell configuration for **Debian/Ubuntu**, including VS Code DevContainers.
 
-## ✨ Features
+## What's included
 
-- **Shell (Zsh):**
-  - **Oh My Posh**: Custom prompt theme with **environment colors**:
-    - 🟣 **Purple**: Dev Containers.
-    - 🟠 **Orange**: GitHub Codespaces.
-    - 🟢 **Green**: Development servers (`mydeployments-dev`).
-  - **Plugins**:
-    - **zsh-autosuggestions**: Fish-like history suggestions (Right Arrow to accept).
-    - **zsh-syntax-highlighting**: Highlights commands as you type.
+**Shell (Zsh):**
+- **Oh My Posh** prompt with environment-aware colors (purple for dev containers, orange for codespaces)
+- **zsh-autosuggestions** - fish-like history suggestions (Right Arrow to accept)
+- **zsh-syntax-highlighting** - colors commands as you type
 
-- **Productivity Tools:**
-  - **Atuin**: Visual history search. Press **Up** to see a navigable list of past commands filtered by what you've typed.
-  - **Zoxide**: Smarter `cd` command for fast navigation.
-  - **fzf**: Fuzzy finder integration for file searching and completion.
+**Tools:**
+- **Atuin** - visual history search (Up arrow to browse, Ctrl+R to search)
+- **fzf** - fuzzy finder (Ctrl+T for files, Alt+C for cd, `**` completion)
+- **Zoxide** - smart `cd` replacement (`z` to jump to frequent directories)
 
-- **Infrastructure:**
-  - **Docker Ready**: Automatically installs Docker Engine and Compose on fresh systems.
-  - **Container Aware**: Installer skips redundant steps when running inside a container.
+**Editor:**
+- Minimal Vim config with search highlighting, smart indent, and system clipboard
 
-- **Editor (Vim):**
-  - Minimal and fast configuration.
-  - Incremental search and highlighting.
-  - System clipboard support.
-  - Smart indentation and line numbering.
+## Install
 
----
-
-## 🛠️ Installation
-
-### Quick Install (one-liner)
+One-liner:
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/marcfabregatb/dotfiles/main/install.sh)
 ```
 
-### Manual Install
+Or manually:
 
 ```bash
 git clone https://github.com/marcfabregatb/dotfiles.git ~/dotfiles
@@ -47,7 +34,7 @@ cd ~/dotfiles && ./install.sh
 
 ### VS Code DevContainers
 
-To automatically use these dotfiles in any DevContainer, add the following to your VS Code user **settings.json** (or your `devcontainer.json`):
+Add to your VS Code **settings.json**:
 
 ```json
 "dotfiles.repository": "https://github.com/marcfabregatb/dotfiles.git",
@@ -55,23 +42,25 @@ To automatically use these dotfiles in any DevContainer, add the following to yo
 "dotfiles.installCommand": "bash ./install.sh"
 ```
 
----
+## Nerd Fonts
 
-## 📋 Prerequisites
+For prompt icons, install a [Nerd Font](https://www.nerdfonts.com/) on your host:
 
-### 1. Nerd Fonts
-To see the icons in the shell prompt correctly, you must have a [Nerd Font](https://www.nerdfonts.com/) installed on your **host machine**.
+```bash
+oh-my-posh font install CaskaydiaCove
+```
 
-- **Installation**: Run `oh-my-posh font install` and pick **CaskaydiaCove**.
-- **VS Code Configuration**: Update your `settings.json`:
-  ```json
-  "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font'",
-  ```
+Then in VS Code settings:
 
-## 📂 Structure
+```json
+"terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font'"
+```
 
-- `.zshrc`: Main Zsh configuration with dynamic path detection and completion logic.
-- `.vimrc`: Quality-of-life Vim settings.
-- `install.sh`: Robust, idempotent installation script (supports Docker & Homebrew).
-- `theme.omp.json`: Oh My Posh prompt theme with environment-aware colors.
-- `plugins/`: (Created during install) Directory for Zsh plugin clones.
+## Files
+
+| File | Purpose |
+|---|---|
+| `install.sh` | Idempotent installer (only installs what's missing) |
+| `.zshrc` | Zsh config: plugins, tools, completion, history |
+| `.vimrc` | Vim settings |
+| `theme.omp.json` | Oh My Posh prompt theme |
