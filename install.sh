@@ -70,7 +70,7 @@ install_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-synta
 # -- Install Oh My Posh (direct binary, no Homebrew needed) --
 if ! command -v oh-my-posh &> /dev/null; then
     echo "Installing Oh My Posh..."
-    curl -s https://ohmyposh.dev/install.sh | sudo bash -s
+    curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- --destination /usr/local/bin
 fi
 
 # -- Install Atuin (visual shell history with Up arrow navigation) --
