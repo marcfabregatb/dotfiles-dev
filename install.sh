@@ -4,7 +4,7 @@ REPO_URL="https://github.com/marcfabregatb/dotfiles.git"
 TARGET_DIR="$HOME/dotfiles"
 
 # Bootstrap: if run via curl|bash, clone the repo first
-if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ] || [[ "${BASH_SOURCE[0]}" == /dev/* ]]; then
+if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ] || [[ "${BASH_SOURCE[0]}" == /dev/* ]] || [[ "${BASH_SOURCE[0]}" == /proc/* ]]; then
     echo "Cloning dotfiles..."
     command -v git &> /dev/null || { sudo apt-get update && sudo apt-get install -y git; }
     git clone "$REPO_URL" "$TARGET_DIR" 2>/dev/null || git -C "$TARGET_DIR" pull
@@ -70,7 +70,7 @@ install_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-synta
 # -- Install Oh My Posh (direct binary, no Homebrew needed) --
 if ! command -v oh-my-posh &> /dev/null; then
     echo "Installing Oh My Posh..."
-    curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- --destination /usr/local/bin
+    curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- -d /usr/local/bin
 fi
 oh-my-posh font install CaskaydiaCove
 
