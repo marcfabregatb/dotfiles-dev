@@ -4,7 +4,7 @@ REPO_URL="https://github.com/marcfabregatb/dotfiles.git"
 TARGET_DIR="$HOME/dotfiles"
 
 # Bootstrap: if run via curl|bash, clone the repo first
-if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ]; then
+if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ] || [[ "${BASH_SOURCE[0]}" == /dev/* ]]; then
     echo "Cloning dotfiles..."
     command -v git &> /dev/null || { sudo apt-get update && sudo apt-get install -y git; }
     git clone "$REPO_URL" "$TARGET_DIR" 2>/dev/null || git -C "$TARGET_DIR" pull
@@ -104,13 +104,17 @@ fi
 
 if ask_install "gemini"; then
     echo "Installing Gemini CLI..."
-    curl -fsSL https://gemini.google.com/cli/install.sh | bash
+    if command -v npm &> /dev/null; then
+        npm install -g @google/gemini-cli
+    else
+        echo "  Skipped: npm is required. Install Node.js first, then run: npm install -g @google/gemini-cli"
+    fi
 fi
 
 # -- Set zsh as default shell --
 if [ "$SHELL" != "$(which zsh)" ]; then
-    echo "Note: your default shell is $SHELL, not zsh."
-    echo "  Run: chsh -s \$(which zsh)"
+    echo "Setting zsh as default shell..."
+    sudo chsh -s "$(which zsh)" "$(whoami)"
 fi
 
 echo "Done! Restart your terminal or run: source ~/.zshrc"
