@@ -4,7 +4,7 @@ REPO_URL="https://github.com/marcfabregatb/dotfiles.git"
 TARGET_DIR="$HOME/dotfiles"
 
 # Bootstrap: if run via curl|bash, clone the repo first
-if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ]; then
+if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ] || [[ "${BASH_SOURCE[0]}" == /dev/* ]]; then
     echo "Cloning dotfiles..."
     command -v git &> /dev/null || { sudo apt-get update && sudo apt-get install -y git; }
     git clone "$REPO_URL" "$TARGET_DIR" 2>/dev/null || git -C "$TARGET_DIR" pull
