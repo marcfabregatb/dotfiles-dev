@@ -72,6 +72,7 @@ if ! command -v oh-my-posh &> /dev/null; then
     echo "Installing Oh My Posh..."
     curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- --destination /usr/local/bin
 fi
+oh-my-posh font install CaskaydiaCove
 
 # -- Install Atuin (visual shell history with Up arrow navigation) --
 if ! command -v atuin &> /dev/null; then
