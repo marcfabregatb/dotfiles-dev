@@ -104,13 +104,17 @@ fi
 
 if ask_install "gemini"; then
     echo "Installing Gemini CLI..."
-    curl -fsSL https://gemini.google.com/cli/install.sh | bash
+    if command -v npm &> /dev/null; then
+        npm install -g @google/gemini-cli
+    else
+        echo "  Skipped: npm is required. Install Node.js first, then run: npm install -g @google/gemini-cli"
+    fi
 fi
 
 # -- Set zsh as default shell --
 if [ "$SHELL" != "$(which zsh)" ]; then
-    echo "Note: your default shell is $SHELL, not zsh."
-    echo "  Run: chsh -s \$(which zsh)"
+    echo "Setting zsh as default shell..."
+    sudo chsh -s "$(which zsh)" "$(whoami)"
 fi
 
 echo "Done! Restart your terminal or run: source ~/.zshrc"
