@@ -36,6 +36,23 @@ fi
 rm -f "$HOME"/.zcompdump*
 mkdir -p "$DOTFILES_DIR/plugins"
 
+# -- Install apt packages (only missing ones) --
+apt_packages=(vim zoxide zsh curl git fzf unzip)
+missing=()
+for pkg in "${apt_packages[@]}"; do
+    command -v "$pkg" &> /dev/null || missing+=("$pkg")
+done
+
+if [ ${#missing[@]} -gt 0 ]; then
+    echo "Installing missing packages: ${missing[*]}..."
+    sudo apt-get update && sudo apt-get install -y "${missing[@]}"
+fi
+
+# -- Symlink config files (before tool installs so ~/.zshrc exists) --
+echo "Creating symlinks..."
+ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+ln -sf "$DOTFILES_DIR/.vimrc" "$HOME/.vimrc"
+
 # -- Clone zsh plugins --
 install_plugin() {
     local name=$1 url=$2
@@ -49,23 +66,6 @@ install_plugin() {
 
 install_plugin "zsh-autosuggestions" "https://github.com/zsh-users/zsh-autosuggestions"
 install_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting"
-
-# -- Symlink config files --
-echo "Creating symlinks..."
-ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-ln -sf "$DOTFILES_DIR/.vimrc" "$HOME/.vimrc"
-
-# -- Install apt packages (only missing ones) --
-apt_packages=(vim zoxide zsh curl git fzf)
-missing=()
-for pkg in "${apt_packages[@]}"; do
-    command -v "$pkg" &> /dev/null || missing+=("$pkg")
-done
-
-if [ ${#missing[@]} -gt 0 ]; then
-    echo "Installing missing packages: ${missing[*]}..."
-    sudo apt-get update && sudo apt-get install -y "${missing[@]}"
-fi
 
 # -- Install Oh My Posh (direct binary, no Homebrew needed) --
 if ! command -v oh-my-posh &> /dev/null; then
