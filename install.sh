@@ -37,7 +37,7 @@ rm -f "$HOME"/.zcompdump*
 mkdir -p "$DOTFILES_DIR/plugins"
 
 # -- Install apt packages (only missing ones) --
-apt_packages=(vim zoxide zsh curl git fzf unzip)
+apt_packages=(vim zoxide zsh curl git fzf unzip tmux)
 missing=()
 for pkg in "${apt_packages[@]}"; do
     command -v "$pkg" &> /dev/null || missing+=("$pkg")
@@ -78,6 +78,33 @@ if ! command -v atuin &> /dev/null; then
     echo "Installing Atuin..."
     curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
     [ -f "$HOME/.atuin/bin/env" ] && source "$HOME/.atuin/bin/env"
+fi
+
+# -- Optional tools (interactive prompt) --
+ask_install() {
+    local name=$1
+    # Skip prompt if already installed
+    command -v "$name" &> /dev/null && return 1
+    # Skip prompts in non-interactive mode (e.g. piped scripts in CI)
+    [[ ! -t 0 ]] && return 1
+    read -rp "Install $name? [y/N] " answer
+    [[ "$answer" =~ ^[Yy]$ ]]
+}
+
+if ask_install "brew"; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+if ask_install "claude"; then
+    echo "Installing Claude Code CLI..."
+    curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+if ask_install "gemini"; then
+    echo "Installing Gemini CLI..."
+    curl -fsSL https://gemini.google.com/cli/install.sh | bash
 fi
 
 # -- Set zsh as default shell --
