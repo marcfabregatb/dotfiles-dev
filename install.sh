@@ -52,6 +52,7 @@ fi
 echo "Creating symlinks..."
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.vimrc" "$HOME/.vimrc"
+ln -sf "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 
 # -- Clone zsh plugins --
 install_plugin() {

@@ -1,6 +1,7 @@
 # -- Environment --
 export DOTFILES_DIR="${${(%):-%x}:A:h}"
 export PATH="$HOME/.local/bin:$PATH"
+export COLORTERM=truecolor
 
 # Homebrew
 if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
