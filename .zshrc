@@ -2,6 +2,13 @@
 export DOTFILES_DIR="${${(%):-%x}:A:h}"
 export PATH="$HOME/.local/bin:$PATH"
 
+# Homebrew
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [ -f "/opt/homebrew/bin/brew" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # -- Atuin env (adds ~/.atuin/bin to PATH) --
 [[ -f "$HOME/.atuin/bin/env" ]] && source "$HOME/.atuin/bin/env"
 
