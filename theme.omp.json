@@ -24,6 +24,20 @@
       "newline": true,
       "segments": [
         {
+          "type": "os",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "foreground": "#ffffff",
+          "background": "#FCC624",
+          "background_templates": [
+            "{{ if eq .Icon \"\uf31b\" }}#E95420{{ end }}",
+            "{{ if eq .Icon \"\uf306\" }}#A80030{{ end }}",
+            "{{ if eq .Icon \"\uF179\" }}#A2AAAD{{ end }}",
+            "{{ if eq .Icon \"\uE62A\" }}#00ADEF{{ end }}"
+          ],
+          "template": " {{ .Icon }} "
+        },
+        {
           "background": "#3A86FF",
           "background_templates": [
             "{{ if env \"REMOTE_CONTAINERS\" }}#107c10{{ end }}",
@@ -31,8 +45,8 @@
             "{{ if contains \"-dev\" .HostName }}#9A00D7{{ end }}"
           ],
           "foreground": "#ffffff",
-          "leading_diamond": "\ue0b6",
-          "style": "diamond",
+          "powerline_symbol": "\ue0b0",
+          "style": "powerline",
           "template": " {{ .UserName }}@{{ .HostName }} ",
           "type": "session"
         },
