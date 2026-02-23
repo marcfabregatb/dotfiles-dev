@@ -118,6 +118,19 @@ if ask_install "gemini"; then
     fi
 fi
 
+if ask_install "gh"; then
+    echo "Installing GitHub CLI..."
+    if command -v brew &> /dev/null; then
+        brew install gh
+    else
+        sudo mkdir -p -m 755 /etc/apt/keyrings
+        wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+        sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+        sudo apt-get update && sudo apt-get install -y gh
+    fi
+fi
+
 # -- Set zsh as default shell --
 if [ "$SHELL" != "$(which zsh)" ]; then
     echo "Setting zsh as default shell..."
