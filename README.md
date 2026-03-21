@@ -1,6 +1,6 @@
-# Dotfiles
+# dotfiles-dev
 
-Personal shell configuration for **Debian/Ubuntu**, including VS Code DevContainers.
+Personal dotfiles for my development environment on **Debian/Ubuntu**, including VS Code DevContainers.
 
 ## What's included
 
