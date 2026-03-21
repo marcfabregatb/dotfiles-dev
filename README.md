@@ -14,6 +14,8 @@ Personal shell configuration for **Debian/Ubuntu**, including VS Code DevContain
 - **fzf** - fuzzy finder (Ctrl+T for files, Alt+C for cd, `**` completion)
 - **tmux** - terminal multiplexer with mouse support and 256-color
 - **Zoxide** - smart `cd` replacement (`z` to jump to frequent directories)
+- **lazydocker** - terminal UI for Docker (optional)
+- **lazygit** - terminal UI for Git (optional)
 
 **Editor:**
 - Minimal Vim config with search highlighting, smart indent, and system clipboard

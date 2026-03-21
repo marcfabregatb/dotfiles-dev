@@ -105,6 +105,19 @@ elif [ -f "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+if ask_install "lazydocker"; then
+    echo "Installing lazydocker..."
+    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+fi
+
+if ask_install "lazygit"; then
+    echo "Installing lazygit..."
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    sudo tar xf /tmp/lazygit.tar.gz -C /usr/local/bin lazygit
+    rm -f /tmp/lazygit.tar.gz
+fi
+
 if ask_install "gh"; then
     echo "Installing GitHub CLI..."
     if command -v brew &> /dev/null; then
