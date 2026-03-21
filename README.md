@@ -25,14 +25,14 @@ Personal shell configuration for **Debian/Ubuntu**, including VS Code DevContain
 One-liner:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/marcfabregatb/dotfiles/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/marcfabregatb/dotfiles-dev/main/install.sh)
 ```
 
 Or manually:
 
 ```bash
-git clone https://github.com/marcfabregatb/dotfiles.git ~/dotfiles
-cd ~/dotfiles && ./install.sh
+git clone https://github.com/marcfabregatb/dotfiles-dev.git ~/dotfiles-dev
+cd ~/dotfiles-dev && ./install.sh
 ```
 
 ### VS Code DevContainers
@@ -40,8 +40,8 @@ cd ~/dotfiles && ./install.sh
 Add to your VS Code **settings.json**:
 
 ```json
-"dotfiles.repository": "https://github.com/marcfabregatb/dotfiles.git",
-"dotfiles.targetPath": "~/dotfiles",
+"dotfiles.repository": "https://github.com/marcfabregatb/dotfiles-dev.git",
+"dotfiles.targetPath": "~/dotfiles-dev",
 "dotfiles.installCommand": "bash ./install.sh"
 ```
 

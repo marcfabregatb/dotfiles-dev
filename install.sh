@@ -1,11 +1,11 @@
 #!/bin/bash
 
-REPO_URL="https://github.com/marcfabregatb/dotfiles.git"
-TARGET_DIR="$HOME/dotfiles"
+REPO_URL="https://github.com/marcfabregatb/dotfiles-dev.git"
+TARGET_DIR="$HOME/dotfiles-dev"
 
 # Bootstrap: if run via curl|bash, clone the repo first
 if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ] || [[ "${BASH_SOURCE[0]}" == /dev/* ]] || [[ "${BASH_SOURCE[0]}" == /proc/* ]]; then
-    echo "Cloning dotfiles..."
+    echo "Cloning dotfiles-dev..."
     command -v git &> /dev/null || { sudo apt-get update && sudo apt-get install -y git; }
     git clone "$REPO_URL" "$TARGET_DIR" 2>/dev/null || git -C "$TARGET_DIR" pull
     exec bash "$TARGET_DIR/install.sh"
@@ -13,7 +13,7 @@ fi
 
 DOTFILES_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-echo "Starting dotfiles installation..."
+echo "Starting dotfiles-dev installation..."
 
 # -- Clean up stale plugins from previous installs --
 ACTIVE_PLUGINS=("zsh-autosuggestions" "zsh-syntax-highlighting")
