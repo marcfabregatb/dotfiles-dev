@@ -105,20 +105,6 @@ elif [ -f "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-if ask_install "claude"; then
-    echo "Installing Claude Code CLI..."
-    curl -fsSL https://claude.ai/install.sh | bash
-fi
-
-if ask_install "gemini"; then
-    echo "Installing Gemini CLI..."
-    if command -v npm &> /dev/null; then
-        npm install -g @google/gemini-cli
-    else
-        echo "  Skipped: npm is required. Install Node.js first, then run: npm install -g @google/gemini-cli"
-    fi
-fi
-
 if ask_install "gh"; then
     echo "Installing GitHub CLI..."
     if command -v brew &> /dev/null; then
