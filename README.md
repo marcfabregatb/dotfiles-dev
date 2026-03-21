@@ -12,6 +12,7 @@ Personal shell configuration for **Debian/Ubuntu**, including VS Code DevContain
 **Tools:**
 - **Atuin** - visual history search (Up arrow to browse, Ctrl+R to search)
 - **fzf** - fuzzy finder (Ctrl+T for files, Alt+C for cd, `**` completion)
+- **tmux** - terminal multiplexer with mouse support and 256-color
 - **Zoxide** - smart `cd` replacement (`z` to jump to frequent directories)
 
 **Editor:**

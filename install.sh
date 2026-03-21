@@ -72,8 +72,8 @@ install_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-synta
 if ! command -v oh-my-posh &> /dev/null; then
     echo "Installing Oh My Posh..."
     curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- -d /usr/local/bin
+    oh-my-posh font install CaskaydiaCove
 fi
-oh-my-posh font install CaskaydiaCove
 
 # -- Install Atuin (visual shell history with Up arrow navigation) --
 if ! command -v atuin &> /dev/null; then
@@ -119,7 +119,7 @@ if ask_install "gh"; then
 fi
 
 # -- Set zsh as default shell --
-if [ "$SHELL" != "$(which zsh)" ]; then
+if [ "$SHELL" != "$(command -v zsh)" ]; then
     echo "Setting zsh as default shell..."
     sudo chsh -s "$(which zsh)" "$(whoami)"
 fi
