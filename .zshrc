@@ -42,6 +42,11 @@ if command -v zoxide &> /dev/null; then
     alias cd="z"
 fi
 
+# Navi (interactive cheatsheets: Ctrl+G to search and insert a command)
+if command -v navi &> /dev/null; then
+    eval "$(navi widget zsh)"
+fi
+
 # Oh My Posh prompt
 if command -v oh-my-posh &> /dev/null; then
     eval "$(oh-my-posh init zsh --config "$DOTFILES_DIR/theme.omp.json")"

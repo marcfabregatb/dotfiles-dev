@@ -16,6 +16,7 @@ Personal dotfiles for my development environment on **Debian/Ubuntu**, including
 - **Zoxide** - smart `cd` replacement (`z` to jump to frequent directories)
 - **lazydocker** - terminal UI for Docker (optional)
 - **lazygit** - terminal UI for Git (optional)
+- **navi** - interactive cheatsheets (Ctrl+G to search and insert a command) (optional)
 
 **Editor:**
 - Minimal Vim config with search highlighting, smart indent, and system clipboard

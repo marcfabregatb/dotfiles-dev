@@ -131,6 +131,15 @@ if ask_install "gh"; then
     fi
 fi
 
+if ask_install "navi"; then
+    echo "Installing navi..."
+    if command -v brew &> /dev/null; then
+        brew install navi
+    else
+        BIN_DIR="$HOME/.local/bin" bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install)
+    fi
+fi
+
 # -- Set zsh as default shell --
 if [ "$SHELL" != "$(command -v zsh)" ]; then
     echo "Setting zsh as default shell..."
