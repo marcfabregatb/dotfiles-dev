@@ -13,7 +13,7 @@ Personal dotfiles for my development environment on **Debian/Ubuntu**, including
 - **Atuin** - visual history search (Up arrow to browse, Ctrl+R to search)
 - **fzf** - fuzzy finder (Ctrl+T for files, Alt+C for cd, `**` completion)
 - **tmux** - terminal multiplexer with mouse support and 256-color
-- **Zoxide** - smart `cd` replacement (`z` to jump to frequent directories)
+- **Zoxide** - smart `cd` replacement (`cd` jumps to frequent directories, `cdi` to pick interactively)
 - **lazydocker** - terminal UI for Docker (optional)
 - **lazygit** - terminal UI for Git (optional)
 - **navi** - interactive cheatsheets (Ctrl+G to search and insert a command) (optional)

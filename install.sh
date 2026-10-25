@@ -37,7 +37,7 @@ rm -f "$HOME"/.zcompdump*
 mkdir -p "$DOTFILES_DIR/plugins"
 
 # -- Install apt packages (only missing ones) --
-apt_packages=(vim zoxide zsh curl git fzf unzip tmux)
+apt_packages=(vim zsh curl git fzf unzip tmux)
 missing=()
 for pkg in "${apt_packages[@]}"; do
     command -v "$pkg" &> /dev/null || missing+=("$pkg")
@@ -73,6 +73,16 @@ if ! command -v oh-my-posh &> /dev/null; then
     echo "Installing Oh My Posh..."
     curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- -d /usr/local/bin
     oh-my-posh font install CaskaydiaCove
+fi
+
+# -- Install Zoxide (official installer; apt's version is too old for --cmd cd) --
+if ! zoxide init zsh --cmd cd 2>/dev/null | grep -q __zoxide_cd; then
+    echo "Installing Zoxide..."
+    if command -v brew &> /dev/null; then
+        brew install zoxide
+    else
+        curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+    fi
 fi
 
 # -- Install Atuin (visual shell history with Up arrow navigation) --

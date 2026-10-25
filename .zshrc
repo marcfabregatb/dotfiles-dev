@@ -36,10 +36,9 @@ if command -v atuin &> /dev/null; then
     eval "$(atuin init zsh)"
 fi
 
-# Zoxide (smart cd: use 'z' to jump to frequent directories)
+# Zoxide (smart cd: 'cd' jumps to frequent directories, 'cdi' to pick interactively)
 if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init zsh)"
-    alias cd="z"
+    eval "$(zoxide init zsh --cmd cd)"
 fi
 
 # Navi (interactive cheatsheets: Ctrl+G to search and insert a command)
