@@ -37,7 +37,7 @@ rm -f "$HOME"/.zcompdump*
 mkdir -p "$DOTFILES_DIR/plugins"
 
 # -- Install apt packages (only missing ones) --
-apt_packages=(vim zsh curl git fzf unzip tmux)
+apt_packages=(vim zsh curl git fzf unzip tmux rsync)
 missing=()
 for pkg in "${apt_packages[@]}"; do
     command -v "$pkg" &> /dev/null || missing+=("$pkg")
