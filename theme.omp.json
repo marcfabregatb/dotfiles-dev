@@ -9,7 +9,7 @@
         {
           "foreground": "#007ACC",
           "template": " {{ .CurrentDate | date .Format }} ",
-          "properties": {
+          "options": {
             "time_format": "15:04:05"
           },
           "style": "plain",
@@ -54,8 +54,7 @@
           "background": "#0000ff",
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b0",
-          "properties": {
-            "prefix": "<#ffffff>  </>",
+          "options": {
             "style": "agnoster_short",
             "enable_hyperlink": true,
             "folder_icon": "<#ffffff> </>",
@@ -77,7 +76,7 @@
           ],
           "foreground": "#011627",
           "leading_diamond": "<transparent,background>\ue0b0</>",
-          "properties": {
+          "options": {
             "branch_icon": "\ue725 ",
             "fetch_status": false,
             "fetch_upstream_icon": true
@@ -95,7 +94,7 @@
           "foreground": "#ffffff",
           "leading_diamond": "<transparent,background>\ue0b0</>",
           "style": "diamond",
-          "template": " \uf7d4 ",
+          "template": " \ue23a ",
           "trailing_diamond": "\ue0b4",
           "type": "exit"
         }
@@ -118,7 +117,7 @@
           "style": "plain",
           "foreground": "#ffffff",
           "template": "❯ ",
-          "properties": {
+          "options": {
             "always_enabled": true
           },
           "foreground_templates": [
