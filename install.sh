@@ -3,10 +3,14 @@
 REPO_URL="https://github.com/marcfabregatb/dotfiles-dev.git"
 TARGET_DIR="$HOME/dotfiles-dev"
 
+# Run privileged commands directly when already root (e.g. devcontainers without sudo)
+SUDO=""
+[ "$(id -u)" -ne 0 ] && SUDO="sudo"
+
 # Bootstrap: if run via curl|bash, clone the repo first
 if [ -z "${BASH_SOURCE[0]}" ] || [ "${BASH_SOURCE[0]}" = "bash" ] || [[ "${BASH_SOURCE[0]}" == /dev/* ]] || [[ "${BASH_SOURCE[0]}" == /proc/* ]]; then
     echo "Cloning dotfiles-dev..."
-    command -v git &> /dev/null || { sudo apt-get update && sudo apt-get install -y git; }
+    command -v git &> /dev/null || { $SUDO apt-get update && $SUDO apt-get install -y git; }
     git clone "$REPO_URL" "$TARGET_DIR" 2>/dev/null || git -C "$TARGET_DIR" pull
     exec bash "$TARGET_DIR/install.sh"
 fi
@@ -57,7 +61,7 @@ done
 
 if [ ${#missing[@]} -gt 0 ]; then
     echo "Installing missing packages: ${missing[*]}..."
-    sudo apt-get update && sudo apt-get install -y "${missing[@]}"
+    $SUDO apt-get update && $SUDO apt-get install -y "${missing[@]}"
 fi
 
 # -- Symlink config files (before tool installs so ~/.zshrc exists) --
@@ -83,7 +87,7 @@ install_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-synta
 # -- Install Oh My Posh (direct binary, no Homebrew needed) --
 if ! command -v oh-my-posh &> /dev/null; then
     echo "Installing Oh My Posh..."
-    curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- -d /usr/local/bin
+    curl -s https://ohmyposh.dev/install.sh | $SUDO bash -s -- -d /usr/local/bin
     oh-my-posh font install CaskaydiaCove
 fi
 
@@ -132,7 +136,7 @@ if ask_install "lazygit"; then
     echo "Installing lazygit..."
     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
     curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    sudo tar xf /tmp/lazygit.tar.gz -C /usr/local/bin lazygit
+    $SUDO tar xf /tmp/lazygit.tar.gz -C /usr/local/bin lazygit
     rm -f /tmp/lazygit.tar.gz
 fi
 
@@ -141,11 +145,11 @@ if ask_install "gh"; then
     if command -v brew &> /dev/null; then
         brew install gh
     else
-        sudo mkdir -p -m 755 /etc/apt/keyrings
-        wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
-        sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-        sudo apt-get update && sudo apt-get install -y gh
+        $SUDO mkdir -p -m 755 /etc/apt/keyrings
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | $SUDO tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+        $SUDO chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | $SUDO tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+        $SUDO apt-get update && $SUDO apt-get install -y gh
     fi
 fi
 
@@ -161,7 +165,7 @@ fi
 # -- Set zsh as default shell --
 if [ "$SHELL" != "$(command -v zsh)" ]; then
     echo "Setting zsh as default shell..."
-    sudo chsh -s "$(which zsh)" "$(whoami)"
+    $SUDO chsh -s "$(which zsh)" "$(whoami)"
 fi
 
 echo "Done! Restart your terminal or run: source ~/.zshrc"
