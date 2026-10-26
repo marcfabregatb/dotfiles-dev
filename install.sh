@@ -15,6 +15,18 @@ DOTFILES_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 echo "Starting dotfiles-dev installation..."
 
+# -- Make previously installed tools visible (this runs in bash, not zsh) --
+load_brew_env() {
+    if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    elif [ -f "/opt/homebrew/bin/brew" ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+}
+
+export PATH="$HOME/.local/bin:$HOME/.atuin/bin:$PATH"
+load_brew_env
+
 # -- Clean up stale plugins from previous installs --
 ACTIVE_PLUGINS=("zsh-autosuggestions" "zsh-syntax-highlighting")
 
@@ -108,12 +120,8 @@ if ask_install "brew"; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Configure brew PATH for current session (works whether just installed or already present)
-if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [ -f "/opt/homebrew/bin/brew" ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+# Configure brew PATH for current session if it was just installed
+load_brew_env
 
 if ask_install "lazydocker"; then
     echo "Installing lazydocker..."
