@@ -134,10 +134,21 @@ fi
 
 if ask_install "lazygit"; then
     echo "Installing lazygit..."
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-    curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    $SUDO tar xf /tmp/lazygit.tar.gz -C /usr/local/bin lazygit
-    rm -f /tmp/lazygit.tar.gz
+    case "$(uname -m)" in
+        x86_64) LAZYGIT_ARCH="x86_64" ;;
+        aarch64|arm64) LAZYGIT_ARCH="arm64" ;;
+        *) LAZYGIT_ARCH="" ;;
+    esac
+    if command -v brew &> /dev/null; then
+        brew install lazygit
+    elif [ -n "$LAZYGIT_ARCH" ]; then
+        LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+        curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_${LAZYGIT_ARCH}.tar.gz"
+        $SUDO tar xf /tmp/lazygit.tar.gz -C /usr/local/bin lazygit
+        rm -f /tmp/lazygit.tar.gz
+    else
+        echo "Skipping lazygit: unsupported architecture $(uname -m)"
+    fi
 fi
 
 if ask_install "gh"; then
