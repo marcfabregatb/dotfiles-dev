@@ -1,0 +1,39 @@
+% ssh
+
+# Connect to a host
+ssh <host>
+
+# Forward a local port to the same port on the remote host
+ssh -L <port>:127.0.0.1:<port> <host>
+
+# Forward a local port to a different remote port
+ssh -L <local_port>:127.0.0.1:<remote_port> <host>
+
+# Run a command on a remote host
+ssh <host> '<command>'
+
+# SOCKS proxy through a host
+ssh -D <port> -N <host>
+
+# Copy a file to a remote host
+scp <local_path> <host>:<remote_path>
+
+# Copy a file from a remote host
+scp <host>:<remote_path> <local_path>
+
+# Sync a directory to a remote host
+rsync -avz --progress <local_path> <host>:<remote_path>
+
+# Generate an ed25519 key
+ssh-keygen -t ed25519 -C "<comment>"
+
+# Install your public key on a host
+ssh-copy-id <host>
+
+# Remove a host from known_hosts (after it was rebuilt)
+ssh-keygen -R <hostname>
+
+; Hosts are taken from user@host targets in your shell history, so none are hardcoded here
+$ host: { atuin history list --cmd-only 2>/dev/null || sed 's/^: [0-9]*:[0-9]*;//' ~/.zsh_history; } | grep -aE '^(ssh|scp|rsync) ' | grep -aoE '[A-Za-z0-9._-]+@[A-Za-z0-9._-]+' | sort -u
+$ hostname: { atuin history list --cmd-only 2>/dev/null || sed 's/^: [0-9]*:[0-9]*;//' ~/.zsh_history; } | grep -aE '^(ssh|scp|rsync) ' | grep -aoE '@[A-Za-z0-9._-]+' | tr -d '@' | sort -u
+$ local_path: ls -1A

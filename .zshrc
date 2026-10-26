@@ -43,6 +43,7 @@ fi
 
 # Navi (interactive cheatsheets: Ctrl+G to search and insert a command)
 if command -v navi &> /dev/null; then
+    export NAVI_PATH="$DOTFILES_DIR/cheats:$HOME/.local/share/navi/cheats"
     eval "$(navi widget zsh)"
 fi
 

@@ -1,0 +1,112 @@
+% docker, compose
+
+# Rebuild and restart stack (down, build, up -d)
+docker compose -f <compose_file> down && docker compose -f <compose_file> build && docker compose -f <compose_file> up -d
+
+# Restart stack without rebuilding (down, up -d)
+docker compose -f <compose_file> down && docker compose -f <compose_file> up -d
+
+# Pull new images and restart stack
+docker compose -f <compose_file> down && docker compose -f <compose_file> pull && docker compose -f <compose_file> up -d
+
+# Start stack in background
+docker compose -f <compose_file> up -d
+
+# Start stack in foreground (see logs)
+docker compose -f <compose_file> up
+
+# Stop and remove stack
+docker compose -f <compose_file> down
+
+# Stop and remove stack, including orphan containers
+docker compose -f <compose_file> down --remove-orphans
+
+# Start one service in background
+docker compose -f <compose_file> up -d <service>
+
+# Recreate services even if unchanged
+docker compose -f <compose_file> up -d --force-recreate <service>
+
+# Rebuild one service without cache
+docker compose -f <compose_file> build --no-cache <service>
+
+# Stop one service
+docker compose -f <compose_file> stop <service>
+
+# Restart one service
+docker compose -f <compose_file> restart <service>
+
+# Follow logs of one service
+docker compose -f <compose_file> logs -f --tail 100 <service>
+
+# Open a shell in a running service
+docker compose -f <compose_file> exec <service> sh
+
+# List services of a stack and their state
+docker compose -f <compose_file> ps
+
+# Recreate stack and wipe one volume
+docker compose -f <compose_file> down && docker volume rm <volume> && docker compose -f <compose_file> up -d
+
+$ compose_file: find . -maxdepth 2 -name '*compose*.y*ml' -printf '%P\n' 2>/dev/null
+$ service: docker compose -f "$compose_file" config --services
+$ volume: docker volume ls --format '{{.Name}}'
+
+% docker, containers
+
+# List running containers
+docker ps
+
+# List running containers (name, status, ports)
+docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
+
+# List all containers, including stopped
+docker ps -a
+
+# Find a container by name
+docker ps --format '{{.Names}}' | grep -i <pattern>
+
+# Stop a container
+docker stop <container>
+
+# Restart a container
+docker restart <container>
+
+# Force-remove a container
+docker rm -f <container>
+
+# Follow logs of a container
+docker logs -f --tail 100 <container>
+
+# Open a shell in a container
+docker exec -it <container> sh
+
+# Live resource usage
+docker stats
+
+$ container: docker ps -a --format '{{.Names}}'
+
+% docker, volumes, networks, cleanup
+
+# List volumes
+docker volume ls
+
+# Remove a volume
+docker volume rm <volume>
+
+# List networks
+docker network ls
+
+# Create a network
+docker network create <network_name>
+
+# Show disk usage
+docker system df
+
+# Remove dangling images
+docker image prune
+
+# Remove all unused images, containers and networks
+docker system prune -a
+
+$ volume: docker volume ls --format '{{.Name}}'

@@ -1,0 +1,68 @@
+% git
+
+# Pull
+git pull
+
+# Pull, rebasing local commits on top
+git pull --rebase
+
+# Push
+git push
+
+# Push a new branch and set upstream
+git push -u origin <branch>
+
+# Status
+git status -sb
+
+# Fetch all remotes and prune deleted branches
+git fetch --all --prune
+
+# Stage everything and commit
+git add -A && git commit -m "<message>"
+
+# Amend last commit without changing message
+git commit --amend --no-edit
+
+# Undo last commit, keep changes staged
+git reset --soft HEAD~1
+
+# Discard all local changes (careful)
+git reset --hard HEAD
+
+# Create and switch to a new branch
+git switch -c <new_branch>
+
+# Switch branch
+git switch <branch>
+
+# Delete a local branch
+git branch -d <branch>
+
+# Show recent history as a graph
+git log --oneline --graph --decorate -20
+
+# Show staged diff
+git diff --staged
+
+# Stash changes, including untracked files
+git stash -u
+
+# Restore last stash
+git stash pop
+
+$ branch: git branch --format='%(refname:short)'
+
+% git, remotes, new repo
+
+# Show remotes
+git remote -v
+
+# Add origin
+git remote add origin <url>
+
+# Change origin URL
+git remote set-url origin <url>
+
+# Initialize a repo and push the first commit
+git init && git add -A && git commit -m "first commit" && git branch -M main && git remote add origin <url> && git push -u origin main

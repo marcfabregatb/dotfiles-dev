@@ -1,0 +1,72 @@
+% debian, apt
+
+# Update package lists and upgrade everything
+sudo apt update && sudo apt upgrade -y
+
+# Install a package
+sudo apt install -y <package>
+
+# Remove a package
+sudo apt remove -y <installed_package>
+
+# Remove a package and its config files
+sudo apt purge -y <installed_package>
+
+# Remove unused dependencies
+sudo apt autoremove -y
+
+# Search packages
+apt search <query>
+
+# Show package details
+apt show <package>
+
+# Show installed and candidate version
+apt-cache policy <package>
+
+# List upgradable packages
+apt list --upgradable
+
+# Which package owns a file
+dpkg -S <file_path>
+
+# List files installed by a package
+dpkg -L <installed_package>
+
+$ installed_package: dpkg-query -W -f '${Package}\n'
+
+% debian, services, logs
+
+# Service status
+systemctl status <unit>
+
+# Restart a service
+sudo systemctl restart <unit>
+
+# Enable and start a service
+sudo systemctl enable --now <unit>
+
+# Follow logs of a service
+journalctl -u <unit> -f
+
+# Logs of a service since boot
+journalctl -u <unit> -b
+
+$ unit: systemctl list-units --type=service --no-legend --plain | awk '{print $1}'
+
+% debian, system
+
+# Disk usage by filesystem
+df -h
+
+# Largest items in a directory
+du -sh <dir>/* 2>/dev/null | sort -rh | head -20
+
+# Listening ports and processes
+sudo ss -tulpn
+
+# OS version
+cat /etc/os-release
+
+# Memory usage
+free -h
