@@ -16,10 +16,12 @@ Personal dotfiles for my development environment on **Debian/Ubuntu**, including
 - **Zoxide** - smart `cd` replacement (`cd` jumps to frequent directories, `cdi` to pick interactively)
 - **lazydocker** - terminal UI for Docker (optional)
 - **lazygit** - terminal UI for Git (optional)
+- **gh** - GitHub CLI (optional)
+- **Homebrew** - package manager, used for zoxide, lazygit, gh and navi when present (optional)
 - **navi** - interactive cheatsheets (Ctrl+G to search and insert a command) (optional), with personal sheets for docker, git, ssh and debian in `cheats/`
 
 **Editor:**
-- Minimal Vim config with search highlighting, smart indent, and system clipboard
+- Minimal Vim config with search highlighting, smart indent, and system clipboard (needs a Vim built with `+clipboard`, e.g. `vim-gtk3`)
 
 ## Install
 
@@ -64,7 +66,10 @@ Then in VS Code settings:
 
 | File | Purpose |
 |---|---|
-| `install.sh` | Idempotent installer (only installs what's missing) |
+| `install.sh` | Idempotent installer (only installs what's missing; works as root without sudo) |
 | `.zshrc` | Zsh config: plugins, tools, completion, history |
 | `.vimrc` | Vim settings |
+| `.tmux.conf` | tmux settings |
 | `theme.omp.json` | Oh My Posh prompt theme |
+| `cheats/` | navi cheatsheets for docker, git, ssh and debian |
+| `plugins/` | Zsh plugins, cloned by `install.sh` (not tracked in git) |
