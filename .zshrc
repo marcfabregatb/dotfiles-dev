@@ -43,6 +43,16 @@ if command -v fzf &> /dev/null; then
     unset fzf_init
 fi
 
+# bat (syntax-highlighted cat; Debian/Ubuntu name the command batcat).
+# cat keeps no decorations so copied text stays clean, and output into a pipe or file
+# stays plain text, so scripts are unaffected. Run `bat FILE` for line numbers and a header.
+if command -v batcat &> /dev/null; then
+    alias bat='batcat'
+fi
+if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
+    alias cat='bat --paging=never --style=plain'
+fi
+
 # Atuin (visual history search: Up arrow to browse, Ctrl+R to search)
 if command -v atuin &> /dev/null; then
     eval "$(atuin init zsh)"

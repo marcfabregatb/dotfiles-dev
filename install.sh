@@ -58,10 +58,13 @@ rm -f "$HOME"/.zcompdump*
 mkdir -p "$DOTFILES_DIR/plugins"
 
 # -- Install apt packages (only missing ones) --
-apt_packages=(vim zsh curl git fzf unzip tmux rsync)
+apt_packages=(vim nano zsh curl git fzf unzip tmux rsync bat)
 missing=()
 for pkg in "${apt_packages[@]}"; do
-    command -v "$pkg" &> /dev/null || missing+=("$pkg")
+    command -v "$pkg" &> /dev/null && continue
+    # Debian/Ubuntu install bat's command as batcat
+    [ "$pkg" = "bat" ] && command -v batcat &> /dev/null && continue
+    missing+=("$pkg")
 done
 
 if [ ${#missing[@]} -gt 0 ]; then
@@ -86,6 +89,11 @@ echo "Creating symlinks..."
 link_file "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES_DIR/.vimrc" "$HOME/.vimrc"
 link_file "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
+link_file "$DOTFILES_DIR/.nanorc" "$HOME/.nanorc"
+mkdir -p "$HOME/.nano"
+for syntax in "$DOTFILES_DIR"/nano/*.nanorc; do
+    link_file "$syntax" "$HOME/.nano/$(basename "$syntax")"
+done
 
 # -- Clone zsh plugins --
 install_plugin() {

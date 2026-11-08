@@ -1,0 +1,5 @@
+## nano settings, linked to ~/.nanorc by install.sh
+## /etc/nanorc still loads first, so nano's built-in syntaxes keep working
+
+# Extra syntaxes from this repo (install.sh links nano/*.nanorc into ~/.nano/)
+include "~/.nano/*.nanorc"

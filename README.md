@@ -11,6 +11,7 @@ Personal dotfiles for my development environment on **Debian/Ubuntu**, including
 
 **Tools:**
 - **Atuin** - visual history search (Up arrow to browse, Ctrl+R to search)
+- **bat** - `cat` with syntax highlighting (`cat` is aliased to it in plain style; `bat FILE` adds line numbers and a header). Highlights `.env` files out of the box
 - **fzf** - fuzzy finder (Ctrl+T for files, Alt+C for cd, `**` completion)
 - **tmux** - terminal multiplexer with mouse support and 256-color
 - **Zoxide** - smart `cd` replacement (`cd` jumps to frequent directories, `cdi` to pick interactively)
@@ -22,6 +23,7 @@ Personal dotfiles for my development environment on **Debian/Ubuntu**, including
 
 **Editor:**
 - Minimal Vim config with search highlighting, smart indent, and system clipboard (needs a Vim built with `+clipboard`, e.g. `vim-gtk3`)
+- nano syntax highlighting for `.env` files (keys, values, quoted strings, `${VAR}` references, comments); add more syntaxes as `nano/*.nanorc`
 
 ## Install
 
@@ -70,6 +72,8 @@ Then in VS Code settings:
 | `.zshrc` | Zsh config: plugins, tools, completion, history |
 | `.vimrc` | Vim settings |
 | `.tmux.conf` | tmux settings |
+| `.nanorc` | nano settings; loads the syntaxes in `nano/` |
+| `nano/` | Extra nano syntax files, linked into `~/.nano/` |
 | `theme.omp.json` | Oh My Posh prompt theme |
 | `cheats/` | navi cheatsheets for docker, git, ssh and debian |
 | `plugins/` | Zsh plugins, cloned by `install.sh` (not tracked in git) |
