@@ -5,7 +5,7 @@ Personal dotfiles for my development environment on **Debian/Ubuntu**, including
 ## What's included
 
 **Shell (Zsh):**
-- **Oh My Posh** prompt with environment-aware colors (purple for dev containers, orange for codespaces)
+- **Oh My Posh** prompt with environment-aware colors (green for VS Code dev containers, orange for Codespaces, purple for hosts whose name contains `-dev`)
 - **zsh-autosuggestions** - fish-like history suggestions (Right Arrow to accept)
 - **zsh-syntax-highlighting** - colors commands as you type
 
@@ -53,7 +53,7 @@ Add to your VS Code **settings.json**:
 For prompt icons, install a [Nerd Font](https://www.nerdfonts.com/) on your host:
 
 ```bash
-oh-my-posh font install CaskaydiaCove
+oh-my-posh font install CascadiaCode
 ```
 
 Then in VS Code settings:
@@ -66,7 +66,7 @@ Then in VS Code settings:
 
 | File | Purpose |
 |---|---|
-| `install.sh` | Idempotent installer (only installs what's missing; works as root without sudo) |
+| `install.sh` | Idempotent installer (only installs what's missing; works as root without sudo; backs up existing dotfiles to `*.bak.<timestamp>`; lists failed steps and exits non-zero) |
 | `.zshrc` | Zsh config: plugins, tools, completion, history |
 | `.vimrc` | Vim settings |
 | `.tmux.conf` | tmux settings |

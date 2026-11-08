@@ -10,8 +10,8 @@ elif [ -f "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# -- Atuin env (adds ~/.atuin/bin to PATH) --
-[[ -f "$HOME/.atuin/bin/env" ]] && source "$HOME/.atuin/bin/env"
+# -- Atuin binary dir (its installer no longer writes ~/.atuin/bin/env, so add it here) --
+[[ -d "$HOME/.atuin/bin" ]] && export PATH="$HOME/.atuin/bin:$PATH"
 
 # -- History --
 HISTFILE=~/.zsh_history
@@ -32,8 +32,15 @@ zstyle ':completion:*' menu select
 # -- Tools --
 # fzf (Ctrl+T for files, Alt+C for cd, ** for completion)
 if command -v fzf &> /dev/null; then
-    [[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
-    [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+    # fzf >= 0.48 (any install method, incl. Homebrew) prints its own setup;
+    # older Debian/Ubuntu packages ship it as example files instead
+    if fzf_init=$(fzf --zsh 2>/dev/null); then
+        eval "$fzf_init"
+    else
+        [[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
+        [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+    fi
+    unset fzf_init
 fi
 
 # Atuin (visual history search: Up arrow to browse, Ctrl+R to search)
